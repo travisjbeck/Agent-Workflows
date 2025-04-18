@@ -1,0 +1,92 @@
+---
+description: Creating and Managing new projects, enhancements, or features. 
+globs: 
+alwaysApply: false
+---
+# Agent Project Management Framework
+
+## Project Organization Structure
+
+All projects are managed through a unified directory structure in the root of each repository:
+
+```bash
+.cursor-projects/
+├── planned/       # Projects that are defined but not yet started
+├── active/        # Projects currently being worked on
+├── completed/     # Projects that have been finished
+```
+
+## Project Lifecycle
+
+Each project follows a specific lifecycle:
+
+1. **Planning Phase**: Create a new markdown file in `.cursor-projects/planned/` with the naming format `YYYY-MM-DD-project-name.md`
+2. **Activation**: When starting work, move the file to `.cursor-projects/active/`
+3. **Completion**: When finished, move the file to `.cursor-projects/completed/`
+
+## Project File Structure
+
+Each project markdown file should follow this template:
+
+```markdown
+# Project: [Project Name]
+- **Created**: [YYYY-MM-DD]
+- **Status**: [Planned|Active|Completed]
+- **Last Updated**: [YYYY-MM-DD]
+
+## Context & Requirements
+[Detailed description of the project, its purpose, and requirements]
+
+## Development Plan
+### Phase 1: [Phase Name]
+- [ ] Task 1
+- [ ] Task 2
+- [ ] Task 3
+
+### Phase 2: [Phase Name]
+- [ ] Task 1
+- [ ] Task 2
+- [ ] Task 3
+
+## Notes & References
+[Any relevant notes, links, or references for the project]
+```
+
+## Project Management Workflow
+
+1. **When planning a new project**:
+   - Create a new markdown file in `.cursor-projects/planned/`
+   - Fill out all sections of the template
+   - Define clear phases and tasks
+
+2. **When starting work on a project**:
+   - Move the file from `.cursor-projects/planned/` to `.cursor-projects/active/`
+   - Update the Status field to "Active"
+   - Update the Last Updated field
+
+3. **During project work**:
+   - Check off tasks as they're completed using `- [x]` syntax
+   - Add any new tasks that emerge
+   - Update the Last Updated field after each session
+
+4. **When completing a project**:
+   - Ensure all tasks are checked off
+   - Move the file from `.cursor-projects/active/` to `.cursor-projects/completed/`
+   - Update the Status field to "Completed"
+   - Update the Last Updated field
+
+5. **When revisiting a project for fixes or enhancements**:
+   - First review all related project files in `.cursor-projects/completed/`
+   - Reference the original project file for context
+   - Create a new project file for the fix/enhancement if substantial
+   - For minor fixes, note them in the original project file
+
+## Project Continuity
+
+All previous project files serve as a knowledge base for future work. Before starting any new projects or fixes:
+
+1. Search through existing project files for relevant context
+2. Reference related past work in new project files
+3. Build upon previous solutions when applicable
+
+This approach ensures continuity of knowledge and prevents redundant work or repeated errors.
