@@ -1,0 +1,90 @@
+---
+description: Generating a Codebase Overview
+globs: 
+alwaysApply: false
+---
+# Agent Instructions: Generating A Codebase Overview (`codebase-overview.mdc`)
+
+**Objective:** To autonomously create a comprehensive `.cursor/rules/codebase-overview.mdc` file that serves as a project overview and style guide. This document should capture the essential technical details, architectural patterns, and development conventions of the codebase, enabling future development (by humans or AI agents) to be consistent and informed.
+
+**Applicability:** These instructions apply to both new/scaffolded projects and existing codebases. The process is similar, but for existing codebases, more inference is required, while for new projects, more definition based on best practices might be needed.
+
+**Process:**
+
+1.  **Initialization & Scope Definition:**
+    *   Identify the primary goal and scope of the project repository (e.g., "Web Application", "Firmware", "Backend API", "Monorepo containing X and Y").
+    *   Determine if the project is brand new or existing.
+
+2.  **Information Gathering (Utilize available tools extensively):**
+    *   **A. Existing Documentation & Rules:**
+        *   **Priority:** Search for and read any existing `.cursorrules` files, `README.md`, `CONTRIBUTING.md`, architectural decision records (ADRs), or other documentation within the workspace. Check `.cursor-projects/` (`planned/`, `active/`, `completed/`) for project history and decisions.
+        *   Fetch relevant user-defined rules (`fetch_rules`) if mentioned or applicable.
+        *   Extract explicit guidelines, project goals, historical context, and decisions made.
+    *   **B. Configuration Files:**
+        *   Read key configuration files to identify technologies and settings:
+            *   **Package/Dependency Management:** (e.g., `package.json`, `composer.json`, `pom.xml`, `requirements.txt`, `Gemfile`, `platformio.ini`, `go.mod`)
+            *   **Framework Configuration:** (e.g., `next.config.js`, `vite.config.ts`, `angular.json`, `laravel/config/`, `symfony.yaml`, `spring/application.properties`)
+            *   **Build System:** (e.g., `Makefile`, `CMakeLists.txt`, `build.gradle`)
+            *   **TypeScript/Transpiler:** (e.g., `tsconfig.json`, `babel.config.js`)
+            *   **Linting/Formatting:** (e.g., `.eslintrc.*`, `.prettierrc.*`, `phpcs.xml`, `rubocop.yml`)
+            *   **Containerization/Deployment:** (e.g., `Dockerfile`, `docker-compose.yml`, serverless configs)
+        *   Identify primary frameworks, languages, libraries, build tools, and any explicitly defined coding standards (from linters/formatters).
+    *   **C. Code Structure Analysis:**
+        *   Use directory listing (`list_dir`) starting from the root and relevant subdirectories (e.g., `src/`, `app/`, `lib/`, `components/`, `controllers/`, `models/`, `services/`).
+        *   Analyze directory names to infer architectural organization (e.g., MVC, Layered, Feature-based, Domain-Driven Design hints).
+        *   Observe file naming conventions (`PascalCase` for classes/components?, `camelCase`/`snake_case` for functions/files?).
+    *   **D. Code Content Analysis (Strategic Sampling & Searching):**
+        *   Read identified entry point files (e.g., `main.*`, `index.*`, `app.*`, `server.*`, core framework bootstrapping files).
+        *   Identify common imports/includes across multiple files (core language libraries, framework modules, common utilities, shared libraries).
+        *   Search (`grep_search`, `codebase_search`) for patterns related to:
+            *   **Data Fetching/Persistence:** ORMs (e.g., Prisma, TypeORM, SQLAlchemy, Eloquent), database clients (e.g., node-postgres, `database/sql`), API clients (`fetch`, `axios`, `gql`), framework-specific data fetching (e.g., Server Actions, `getServerSideProps`, `loader` functions).
+            *   **State Management:** Framework built-ins, `useState`/`useReducer`/`useContext`, Redux, Zustand, Jotai, etc.
+            *   **Styling:** CSS preprocessors (Sass, Less), utility frameworks (Tailwind), CSS-in-JS (Styled Components, Emotion), component library styling, global stylesheets.
+            *   **Component/Class Definition:** Functional vs. class-based components/objects, dependency injection patterns, inheritance vs. composition.
+            *   **Type Usage:** Static typing (TypeScript, PHP type hints, Java/C#), dynamic typing. Use of `any` or equivalent. Schema-derived types.
+            *   **Naming Conventions:** Observe function, variable, class/type, constant naming conventions in practice.
+            *   **Error Handling:** `try...catch`, specific error classes, global error handlers, logging frameworks, monitoring/reporting integrations.
+    *   **E. Dialogue History:** Review the current conversation thread for any explicit instructions, decisions, or context provided by the user.
+
+3.  **Synthesize Findings & Identify Patterns:**
+    *   Combine information from all sources.
+    *   List the core technologies, languages, and libraries in use.
+    *   Document the primary architectural patterns identified.
+    *   Summarize the dominant conventions observed for structure, naming, data handling, styling, etc.
+    *   Note any significant inconsistencies found.
+
+4.  **Define Standards (If Necessary):**
+    *   **Existing Codebase:**
+        *   If conventions are inconsistent, infer the *most prevalent* or *most recent* pattern as the recommended standard. Explicitly mention the inconsistency and the chosen standard.
+        *   If conflicting explicit rules exist (e.g., old README vs. current code), prioritize the pattern currently implemented in the code, but note the discrepancy in the overview.
+    *   **New Project:**
+        *   If specific standards aren't provided or inferable, *define* reasonable standards based on the chosen framework/language's best practices and general industry conventions.
+        *   Examples: Recommend Conventional Commits, define a primary data fetching strategy, specify a styling approach.
+    *   **Clearly state any assumptions or definitions made by the agent.** Use phrases like: "Based on observed usage, the recommended convention for X is...", or "For consistency, the following standard is adopted for X...".
+
+5.  **Structure the Output (`codebase-overview.mdc`):**
+    *   Use Markdown format.
+    *   Create a clear, hierarchical structure with headings and subheadings (e.g., Overall Goal, Backend Details, Frontend Details, General Guidelines). Adjust sections based on project scope.
+    *   Use bullet points for lists of conventions or features.
+    *   Use code blocks (```) for file paths, commands, or short examples.
+    *   If multiple distinct parts exist (e.g., firmware, web app, API), create separate top-level sections for each.
+    *   Include sections covering (adapt as needed):
+        *   Project Purpose/Goal
+        *   Technology Stack(s)
+        *   Code Structure & Key Files/Directories
+        *   Architectural Patterns (Data Flow, State Management, Routing, Key Design Patterns, etc.)
+        *   Development Workflow (Setup, Build commands, Testing strategy, Environment setup)
+        *   Style Guide (Naming, Formatting, Typing, Error Handling, Commits)
+        *   Project Management (If `.cursor-projects` is used)
+
+6.  **Review and Refine:**
+    *   Read through the generated document.
+    *   Ensure clarity, accuracy, and conciseness.
+    *   Verify that it addresses the key aspects needed for future development based on the information gathered.
+    *   Confirm it aligns with the structure of the example `codebase-overview.mdc` if one was previously created in the dialogue.
+
+7.  **Save the File:**
+    *   Ensure the `.cursor/rules` directory exists (`mkdir -p .cursor/rules`).
+    *   Save the content to `.cursor/rules/codebase-overview.mdc` (or the specified name).
+
+By following these steps, you should be able to generate a valuable `codebase-overview.mdc` file that captures the essence of the project and promotes consistent development practices.
