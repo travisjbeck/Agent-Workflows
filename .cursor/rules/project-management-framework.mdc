@@ -1,5 +1,5 @@
 ---
-description: Creating and Managing new projects, enhancements, or features. 
+description: Creating and Managing new projects, enhancements, or features.
 globs: 
 alwaysApply: false
 ---
@@ -33,6 +33,9 @@ Each project markdown file should follow this template:
 - **Created**: [YYYY-MM-DD]
 - **Status**: [Planned|Active|Completed]
 - **Last Updated**: [YYYY-MM-DD]
+
+Don't assume dates; use tools to get the correct date.
+run `date +%Y-%m-%d` to get the current date. 
 
 ## Context & Requirements
 [Detailed description of the project, its purpose, and requirements]
